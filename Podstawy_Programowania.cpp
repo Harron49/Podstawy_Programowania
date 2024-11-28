@@ -7,12 +7,34 @@ int main()
 {
     std::cout << "Hej Mała!\n";
 
-    int jeden = 1;
+    int pierwszaLiczba = 1;
     int dwadzieściatrzy = 23;
-    
-    std::cout << "My Number: " << jeden <<", " << dwadzieściatrzy;
 
+    std::cout << "My Number: " << pierwszaLiczba << ", " << dwadzieściatrzy <<"\n";
+
+    if (pierwszaLiczba <= dwadzieściatrzy) {
+        std::cout << "Jest: 1<23" << "\n";
+        for (int i = 1; i <= 22; i++) {
+            pierwszaLiczba = pierwszaLiczba +1*20;
+            std::cout << "Liczba: " << pierwszaLiczba <<"\n";
+        }
+    } else {
+        std::cout << "pierwszaLiczba jest większy od dwudziestutrzech" << std::endl;
+    }
+    
+    if (pierwszaLiczba <= dwadzieściatrzy) {
+        std::cout << "Jest: 1<23" << "\n";
+       
+        std::cout << "Liczba: " << pierwszaLiczba << "\n";
+        
+    } else {
+        std::cout << "pierwszaLiczba jest większy od dwudziestutrzech" << std::endl;
+        std::cout << "Liczba: " << pierwszaLiczba << "\n";
+    }
 }
+
+
+
 
 // Uruchomienie programu: Ctrl + F5 lub menu Debugowanie > Uruchom bez debugowania
 // Debugowanie programu: F5 lub menu Debugowanie > Rozpocznij debugowanie
