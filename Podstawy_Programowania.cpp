@@ -5,7 +5,13 @@
 
 int main()
 {
-    std::cout << "Hello World!\n";
+    std::cout << "Hej Mała!\n";
+
+    int jeden = 1;
+    int dwadzieściatrzy = 23;
+    
+    std::cout << "My Number: " << jeden <<", " << dwadzieściatrzy;
+
 }
 
 // Uruchomienie programu: Ctrl + F5 lub menu Debugowanie > Uruchom bez debugowania
