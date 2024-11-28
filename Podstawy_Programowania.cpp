@@ -2,6 +2,43 @@
 //
 
 #include <iostream>
+#include <typeinfo>
+
+using namespace std;
+
+static int policzBMI()
+{
+
+    float Waga = 0.0f;
+    float Wzrost = 0.0f;
+
+    cout << "Podaj swoja wage: ";
+    while (!(cin >> Waga)) {
+        cout << "Niepoprawna waga. Podaj poprawna wage ";
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    }
+
+    cout << "Podaj swoja wzrost: ";
+    while (!(cin >> Wzrost)) {
+        cout << "Niepoprawny wzrost. Podaj poprawny wzrost ";
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    }
+    //cin >> Wzrost;
+    
+
+    float BMI = Waga / (Wzrost*Wzrost);
+
+
+  //  while (Waga !=) 
+
+    cout << "\nTwoja liczba to: " << BMI;
+    system("pause");
+    return Waga;
+
+
+}
 
 int main()
 {
@@ -31,10 +68,9 @@ int main()
         std::cout << "pierwszaLiczba jest większy od dwudziestutrzech" << std::endl;
         std::cout << "Liczba: " << pierwszaLiczba << "\n";
     }
+
+    policzBMI();
 }
-
-
-
 
 // Uruchomienie programu: Ctrl + F5 lub menu Debugowanie > Uruchom bez debugowania
 // Debugowanie programu: F5 lub menu Debugowanie > Rozpocznij debugowanie
