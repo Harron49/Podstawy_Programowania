@@ -9,31 +9,50 @@ using namespace std;
 static int policzBMI()
 {
 
-    float Waga = 0.0f;
-    float Wzrost = 0.0f;
+    float Waga = 0.0f; // Waga
+    float Wzrost = 0.0f; // Wzrost
 
-    cout << "Podaj swoja wage: ";
-    while (!(cin >> Waga)) {
-        cout << "Niepoprawna waga. Podaj poprawna wage ";
-        cin.clear();
+    cout << "Podaj swoja wage w kg: ";  // Tekst wyświetlany każacy podać wartość 
+    while (!(cin >> Waga) || Waga <=0) { //Zabespieczenie aby nikt nie wpisał liczby mniejszej od 0
+        cout << "Niepoprawna waga. Podaj poprawna wage w kg "; // Tekst wyświetlany jeżeli waga jest niepoprawna np. wpiszemy tekst zamiast liczby
+        cin.clear(); //Czyścik błędów
+        cin.ignore(numeric_limits<streamsize>::max(), '\n'); 
+    }
+
+    // EasterEgg1 - 69
+    if (Waga == 69) {
+        cout << "\nNICE\n";  // Specjalny komunikat jeżeli wpiszemy w Wagę liczbę 69
+    }
+
+    cout << "Podaj swoj wzrost w metrach: "; // Tekst wyświetlany każacy podać wartość 
+    while (!(cin >> Wzrost) || Wzrost <=0) { //Zabespieczenie aby nikt nie wpisał liczby mniejszej od 0
+        cout << "Niepoprawny wzrost. Podaj poprawny wzrost w metrach "; // Tekst wyświetlany jeżeli wzrost jest niepoprawna np. wpiszemy tekst zamiast liczby
+        cin.clear(); //Czyścik błędów
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
     }
 
-    cout << "Podaj swoja wzrost: ";
-    while (!(cin >> Wzrost)) {
-        cout << "Niepoprawny wzrost. Podaj poprawny wzrost ";
-        cin.clear();
-        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
+
+    float BMI = Waga / (Wzrost * Wzrost); //Równianie do obliczenia BMI
+
+ 
+
+    cout << "\nTwoja liczba to: " << BMI; // tekst "Twoja liczba to:" i potem liczba z obliczenia
+
+    // Grupy BMI - Jeżeli wartośc z wyliczenia wynosi mniej od 18.5 oznacza to niedowagę itd.
+    if (BMI < 18.5) {
+        cout << "-Niedowaga BMI" << endl;
     }
-    //cin >> Wzrost;
-    
+    else if (BMI >= 18.5 && BMI < 24.9) {
+        cout << "-Waga w normie BMI" << endl;
+    }
+    else if (BMI >= 25 && BMI < 29.9) {
+        cout << "-Nadwaga BMI" << endl;
+    }
+    else {
+        cout << "-Otyłość BMI" << endl;
+    }
 
-    float BMI = Waga / (Wzrost*Wzrost);
-
-
-  //  while (Waga !=) 
-
-    cout << "\nTwoja liczba to: " << BMI;
     system("pause");
     return Waga;
 
