@@ -6,17 +6,44 @@
 
 using namespace std;
 
-static int policzBMI()
+static string policzBMI(double WagaBMI,double WzrostBMI)
 {
+    string message; // Wiadomosc zwrotna dla uzytkownika
 
-    float Waga = 0.0f; // Waga
-    float Wzrost = 0.0f; // Wzrost
+    float BMI = WagaBMI / (WzrostBMI * WzrostBMI); //Równianie do obliczenia BMI
+
+    cout << "\nTwoje BMI wynosi: " << BMI; // tekst "Twoje BMI wynosi:" i potem liczba z obliczenia powyżej
+
+    // Grupy BMI - Jeżeli wartośc z wyliczenia wynosi mniej od 18.5 oznacza to niedowagę itd.
+    if (BMI < 18.5) {
+        message = " ---> Niedowaga wedlug BMI \n";
+    }else if (BMI == 22) {
+        message += " ---> Idealne BMI! Wyglada na to, ze jestes w idealnej formie! \n"; // EasterEgg2 - 22 Jeżeli wynik obliczenia BMI wyjdzie równo 22 otrzymujemy specjalnego prompta (np.Waga=88kg Wzrost=2m)
+    }else if (BMI >= 18.5 && BMI < 24.9) {
+        message += " ---> Waga w normie BMI \n";  
+    }else if (BMI >= 25 && BMI < 29.9) {
+            message += " ---> Nadwaga wedlug BMI \n";
+    }else if (BMI == 42) { // EasterEgg3 - 42 Jeżeli wynik obliczenia BMI wyjdzie równo 42 otrzymujemy specjalnego prompta (np.Waga=168kg Wzrost=2m)
+            message += " ---> odpowiedz na wszystko Gratulacje!!! Przy okazji poważna Otyłość według BMI \n";
+    }else if (BMI > 29.9) {
+            message += " ---> Otylosc wedlug BMI \n";
+    }
+
+    
+    return message;
+
+}
+
+int main()
+{
+    double Waga = 0.0; // deklaracja-Waga jest wartością liczbową przecinkową 
+    double Wzrost = 0.0; // deklaracja-Wzrost jest wartością liczbową przecinkową
 
     cout << "Podaj swoja wage w kg: ";  // Tekst wyświetlany każacy podać wartość 
-    while (!(cin >> Waga) || Waga <=0) { //Zabespieczenie aby nikt nie wpisał liczby mniejszej od 0
+    while (!(cin >> Waga) || Waga <= 0) { //Zabespieczenie aby nikt nie wpisał liczby mniejszej od 0
         cout << "Niepoprawna waga. Podaj poprawna wage w kg "; // Tekst wyświetlany jeżeli waga jest niepoprawna np. wpiszemy tekst zamiast liczby
         cin.clear(); //Czyścik błędów
-        cin.ignore(numeric_limits<streamsize>::max(), '\n'); 
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
     }
 
     // EasterEgg1 - 69
@@ -25,70 +52,13 @@ static int policzBMI()
     }
 
     cout << "Podaj swoj wzrost w metrach: "; // Tekst wyświetlany każacy podać wartość 
-    while (!(cin >> Wzrost) || Wzrost <=0) { //Zabespieczenie aby nikt nie wpisał liczby mniejszej od 0
+    while (!(cin >> Wzrost) || Wzrost <= 0) { //Zabespieczenie aby nikt nie wpisał liczby mniejszej od 0
         cout << "Niepoprawny wzrost. Podaj poprawny wzrost w metrach "; // Tekst wyświetlany jeżeli wzrost jest niepoprawna np. wpiszemy tekst zamiast liczby
         cin.clear(); //Czyścik błędów
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
     }
-
-
-
-    float BMI = Waga / (Wzrost * Wzrost); //Równianie do obliczenia BMI
-
- 
-
-    cout << "\nTwoja liczba to: " << BMI; // tekst "Twoja liczba to:" i potem liczba z obliczenia
-
-    // Grupy BMI - Jeżeli wartośc z wyliczenia wynosi mniej od 18.5 oznacza to niedowagę itd.
-    if (BMI < 18.5) {
-        cout << "-Niedowaga BMI" << endl;
-    }
-    else if (BMI >= 18.5 && BMI < 24.9) {
-        cout << "-Waga w normie BMI" << endl;
-    }
-    else if (BMI >= 25 && BMI < 29.9) {
-        cout << "-Nadwaga BMI" << endl;
-    }
-    else {
-        cout << "-Otyłość BMI" << endl;
-    }
-
+    cout << policzBMI(Waga,Wzrost);
     system("pause");
-    return Waga;
-
-
-}
-
-int main()
-{
-    std::cout << "Hej Mała!\n";
-
-    int pierwszaLiczba = 1;
-    int dwadzieściatrzy = 23;
-
-    std::cout << "My Number: " << pierwszaLiczba << ", " << dwadzieściatrzy <<"\n";
-
-    if (pierwszaLiczba <= dwadzieściatrzy) {
-        std::cout << "Jest: 1<23" << "\n";
-        for (int i = 1; i <= 22; i++) {
-            pierwszaLiczba = pierwszaLiczba +1*20;
-            std::cout << "Liczba: " << pierwszaLiczba <<"\n";
-        }
-    } else {
-        std::cout << "pierwszaLiczba jest większy od dwudziestutrzech" << std::endl;
-    }
-    
-    if (pierwszaLiczba <= dwadzieściatrzy) {
-        std::cout << "Jest: 1<23" << "\n";
-       
-        std::cout << "Liczba: " << pierwszaLiczba << "\n";
-        
-    } else {
-        std::cout << "pierwszaLiczba jest większy od dwudziestutrzech" << std::endl;
-        std::cout << "Liczba: " << pierwszaLiczba << "\n";
-    }
-
-    policzBMI();
 }
 
 // Uruchomienie programu: Ctrl + F5 lub menu Debugowanie > Uruchom bez debugowania
