@@ -4,6 +4,8 @@
 #include <iostream>
 #include <typeinfo>
 
+#include <fstream> // Dodane aby obsługiwać pliki
+
 using namespace std;
 
 static string policzBMI(double WagaBMI,double WzrostBMI)
@@ -34,11 +36,22 @@ static string policzBMI(double WagaBMI,double WzrostBMI)
 
 }
 
-int main()
-{
+int main() {
+
     double Waga = 0.0; // deklaracja-Waga jest wartością liczbową przecinkową 
     double Wzrost = 0.0; // deklaracja-Wzrost jest wartością liczbową przecinkową
+    ifstream inputFile("dane.txt"); // Otwieranie pliku dane.txt
 
+    if (inputFile.is_open()) {
+        // Jeśli plik istnieje, odczytujemy dane z niego
+        inputFile >> Waga >> Wzrost;
+        inputFile.close();
+        cout << "Dane odczytane z pliku: \n";
+        cout << "Waga: " << Waga << " kg\n";
+        cout << "Wzrost: " << Wzrost << " m\n";
+    }
+    else {
+        // Jeśli plik nie istnieje, użytkownik musi wprowadzić dane
     cout << "Podaj swoja wage w kg: ";  // Tekst wyświetlany każacy podać wartość 
     while (!(cin >> Waga) || Waga <= 0) { //Zabespieczenie aby nikt nie wpisał liczby mniejszej od 0
         cout << "Niepoprawna waga. Podaj poprawna wage w kg "; // Tekst wyświetlany jeżeli waga jest niepoprawna np. wpiszemy tekst zamiast liczby
@@ -56,6 +69,7 @@ int main()
         cout << "Niepoprawny wzrost. Podaj poprawny wzrost w metrach "; // Tekst wyświetlany jeżeli wzrost jest niepoprawna np. wpiszemy tekst zamiast liczby
         cin.clear(); //Czyścik błędów
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    }
     }
     cout << policzBMI(Waga,Wzrost);
     system("pause");
