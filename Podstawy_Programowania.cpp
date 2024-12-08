@@ -5,6 +5,7 @@
 #include <typeinfo>
 
 #include <fstream> // Dodane aby obsługiwać pliki
+#include <string>
 
 using namespace std;
 
@@ -14,11 +15,11 @@ static string policzBMI(double WagaBMI,double WzrostBMI)
 
     float BMI = WagaBMI / (WzrostBMI * WzrostBMI); //Równianie do obliczenia BMI
 
-    cout << "\nTwoje BMI wynosi: " << BMI; // tekst "Twoje BMI wynosi:" i potem liczba z obliczenia powyżej
+    message = "\nTwoje BMI wynosi: " + to_string(BMI); // tekst "Twoje BMI wynosi:" i potem liczba z obliczenia powyżej
 
     // Grupy BMI - Jeżeli wartośc z wyliczenia wynosi mniej od 18.5 oznacza to niedowagę itd.
     if (BMI < 18.5) {
-        message = " ---> Niedowaga wedlug BMI \n";
+        message += " ---> Niedowaga wedlug BMI \n";
     }else if (BMI == 22) {
         message += " ---> Idealne BMI! Wyglada na to, ze jestes w idealnej formie! \n"; // EasterEgg2 - 22 Jeżeli wynik obliczenia BMI wyjdzie równo 22 otrzymujemy specjalnego prompta (np.Waga=88kg Wzrost=2m)
     }else if (BMI >= 18.5 && BMI < 24.9) {
@@ -26,7 +27,7 @@ static string policzBMI(double WagaBMI,double WzrostBMI)
     }else if (BMI >= 25 && BMI < 29.9) {
             message += " ---> Nadwaga wedlug BMI \n";
     }else if (BMI == 42) { // EasterEgg3 - 42 Jeżeli wynik obliczenia BMI wyjdzie równo 42 otrzymujemy specjalnego prompta (np.Waga=168kg Wzrost=2m)
-            message += " ---> odpowiedz na wszystko Gratulacje!!! Przy okazji poważna Otyłość według BMI \n";
+            message += " ---> odpowiedz na wszystko Gratulacje!!! Przy okazji powazna Otylosc wedlug BMI \n";
     }else if (BMI > 29.9) {
             message += " ---> Otylosc wedlug BMI \n";
     }
@@ -40,23 +41,28 @@ int main() {
 
     double Waga = 0.0; // deklaracja-Waga jest wartością liczbową przecinkową 
     double Wzrost = 0.0; // deklaracja-Wzrost jest wartością liczbową przecinkową
-    ifstream inputFile("dane.txt"); // Otwieranie pliku dane.txt
+    ifstream plikIfStream;
+    plikIfStream.open("test.txt");
 
-    if (inputFile.is_open()) {
-        // Jeśli plik istnieje, odczytujemy dane z niego
-        inputFile >> Waga >> Wzrost;
-        inputFile.close();
-        cout << "Dane odczytane z pliku: \n";
-        cout << "Waga: " << Waga << " kg\n";
-        cout << "Wzrost: " << Wzrost << " m\n";
+    if (!plikIfStream) {  // 
+        ofstream plikOfStream;
+        plikOfStream.open("test.txt");
+        plikOfStream.close();
+        cout << "Plik nie istnieje" << endl; 
     }
     else {
-        // Jeśli plik nie istnieje, użytkownik musi wprowadzić dane
+        string linia;
+        cout << "Przy ostatnim uruchomieniu programu dane wynosily: ";
+        while (getline(plikIfStream, linia)) {
+            cout << linia << endl; // nie zadziała
+        }
+    }
+
     cout << "Podaj swoja wage w kg: ";  // Tekst wyświetlany każacy podać wartość 
     while (!(cin >> Waga) || Waga <= 0) { //Zabespieczenie aby nikt nie wpisał liczby mniejszej od 0
         cout << "Niepoprawna waga. Podaj poprawna wage w kg "; // Tekst wyświetlany jeżeli waga jest niepoprawna np. wpiszemy tekst zamiast liczby
         cin.clear(); //Czyścik błędów
-        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        cin.ignore(numeric_limits<streamsize>::max(), '\n'); // 
     }
 
     // EasterEgg1 - 69
@@ -70,8 +76,14 @@ int main() {
         cin.clear(); //Czyścik błędów
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
     }
-    }
-    cout << policzBMI(Waga,Wzrost);
+    string return_msg = policzBMI(Waga,Wzrost);
+
+    ofstream file3("test.txt");
+
+    cout << return_msg;
+    file3 << return_msg;
+
+    file3.close();
     system("pause");
 }
 

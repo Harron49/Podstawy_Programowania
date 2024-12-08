@@ -1,0 +1,2 @@
+
+Twoje BMI wynosi: 22.000000 ---> Idealne BMI! Wyglada na to, ze jestes w idealnej formie! 
