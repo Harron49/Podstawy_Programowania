@@ -1,15 +1,16 @@
-﻿// Podstawy_Programowania.cpp : Ten plik zawiera funkcję „main”. W nim rozpoczyna się i kończy wykonywanie programu.
-//
+﻿//Plik ma za zadanie pobrać od użytkownika wagę oraz wzrost następnie obliczyć BMI i pokazać użytkownikowi wynik z informacją w jakiej grupie BMI się znajduje.
+//Potem zapisać wynik do następnego otwarcia programu. 
+//Dodałem do kodu kilka Easter eggów dla urozmaicenia 
 
-#include <iostream>
-#include <typeinfo>
+#include <iostream> // Biblioteka do obsługi wejścia i wyjścia (np. cout, cin)
+#include <typeinfo> // Biblioteka do sprawdzania typów danych
 
-#include <fstream> // Dodane aby obsługiwać pliki
-#include <string>
+#include <fstream> // Dodane aby obsługiwać pliki (zapis itp.)
+#include <string> // Biblioteka do obsługi tekstu (string)
 
-using namespace std;
+using namespace std; // dzieki temu nie musimy dodawać std:: przed komendami (np.std::cout tylko cout)
 
-static string policzBMI(double WagaBMI,double WzrostBMI)
+static string policzBMI(double WagaBMI,double WzrostBMI) // Funkcja, która oblicza BMI i zwraca wynik w formie tekstu 
 {
     string message; // Wiadomosc zwrotna dla uzytkownika
 
@@ -33,7 +34,7 @@ static string policzBMI(double WagaBMI,double WzrostBMI)
     }
 
     
-    return message;
+    return message; // Zwracanie już kompletnej wiadomości
 
 }
 
@@ -41,28 +42,28 @@ int main() {
 
     double Waga = 0.0; // deklaracja-Waga jest wartością liczbową przecinkową 
     double Wzrost = 0.0; // deklaracja-Wzrost jest wartością liczbową przecinkową
-    ifstream plikIfStream;
-    plikIfStream.open("test.txt");
+    ifstream plikIfStream; // deklaracja obiekty do czytania pliku
+    plikIfStream.open("test.txt"); // Próba otwarcia pliku o nazwie test.txt
 
-    if (!plikIfStream) {  // 
+    if (!plikIfStream) {  // jeżeli plik z powyżej nie istnieje to tworzymy nowy i informujemy użytkownika że "Plik nie istnieje"
         ofstream plikOfStream;
         plikOfStream.open("test.txt");
         plikOfStream.close();
         cout << "Plik nie istnieje" << endl; 
     }
-    else {
+    else { // Jeżeli plik istnieje to chcemy aby wypluwał nam ostatnie dane oraz tekst "Przy ostatnim uruchomieniu programu dane wynosily: "
         string linia;
         cout << "Przy ostatnim uruchomieniu programu dane wynosily: ";
         while (getline(plikIfStream, linia)) {
-            cout << linia << endl; // nie zadziała
+            cout << linia << endl; 
         }
     }
 
-    cout << "Podaj swoja wage w kg: ";  // Tekst wyświetlany każacy podać wartość 
+    cout << "Podaj swoja wage w kg: ";  // Tekst wyświetlany każacy podać wartość twojej Wagi
     while (!(cin >> Waga) || Waga <= 0) { //Zabespieczenie aby nikt nie wpisał liczby mniejszej od 0
         cout << "Niepoprawna waga. Podaj poprawna wage w kg "; // Tekst wyświetlany jeżeli waga jest niepoprawna np. wpiszemy tekst zamiast liczby
-        cin.clear(); //Czyścik błędów
-        cin.ignore(numeric_limits<streamsize>::max(), '\n'); // 
+        cin.clear(); //Czyścik błędów jakby użytkownik wprowadził niepoprawny wynik bez tego błąd by się zapętlał tworząc niczym lampli choinkowe 
+        cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Pomijanie błędnych danych w buforze 
     }
 
     // EasterEgg1 - 69
@@ -74,17 +75,17 @@ int main() {
     while (!(cin >> Wzrost) || Wzrost <= 0) { //Zabespieczenie aby nikt nie wpisał liczby mniejszej od 0
         cout << "Niepoprawny wzrost. Podaj poprawny wzrost w metrach "; // Tekst wyświetlany jeżeli wzrost jest niepoprawna np. wpiszemy tekst zamiast liczby
         cin.clear(); //Czyścik błędów
-        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Pomijanie błędnych danych w buforze 
     }
-    string return_msg = policzBMI(Waga,Wzrost);
+    string wiadomosc_zwrotna = policzBMI(Waga,Wzrost); //wywołanie funkcji do obliczenia BMI i zapisanie wyniku w wiadomosc_zwrotna
 
-    ofstream file3("test.txt");
+    ofstream plik3("test.txt"); // Otwarcie pliku do zapisu wyniku
 
-    cout << return_msg;
-    file3 << return_msg;
+    cout << wiadomosc_zwrotna; // Wyplucie/Wyświetlenie wyniku na ekranie 
+    plik3 << wiadomosc_zwrotna; //Zapis wyniku do pliku 
 
-    file3.close();
-    system("pause");
+    plik3.close(); //zamknięcie pliku
+    system("pause"); // Wstrzymanie programu przed zamknięciem
 }
 
 // Uruchomienie programu: Ctrl + F5 lub menu Debugowanie > Uruchom bez debugowania
